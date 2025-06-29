@@ -1,0 +1,17 @@
+DROP SEQUENCE IF EXISTS polls_learning_id_seq CASCADE;
+CREATE SEQUENCE polls_learning_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+CREATE TABLE nei_polls (
+  id BIGINT NOT NULL DEFAULT nextval('polls_learning_id_seq'),
+  question TEXT NOT NULL,
+  thcount  integer NOT NULL 
+);
+
+INSERT INTO nei_polls ( question,thcount) VALUES ( '犬好き', 0);
+INSERT INTO nei_polls ( question,thcount) VALUES ( '猫好き', 0);
+INSERT INTO nei_polls ( question,thcount) VALUES ( 'どっちも苦手', 0);

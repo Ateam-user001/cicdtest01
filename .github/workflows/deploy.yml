@@ -26,9 +26,9 @@
          - name: Deploy to EC2
            uses: appleboy/ssh-action@master
            with:
-             host: 13.113.194.194
-             username: admin001
-             password: pwad0629
+             host: ${{ secrets.EC2_HOST }}
+             username: ${{ secrets.EC2_USER }}
+             password: ${{ secrets.EC2_PASSWORD }}
              port: 22
              script: |
                mkdir /home/ec2-user/app

@@ -14,14 +14,13 @@
            with:
              java-version: '17'
              distribution: 'adopt'
+         - name:  Build and package SpringBoot app with Maven
+           run: mvn clean install -DskipTests
          - name: Build and package Angular app
            run: |
              cd angular-app
              npm install
              npm run build
-         - name: Build and package SpringBoot app
-           run: |
-             ./gradlew bootJar
          - name: Deploy to EC2
            uses: appleboy/ssh-action@master
            with:

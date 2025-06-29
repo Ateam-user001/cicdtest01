@@ -1,0 +1,10 @@
+
+  <div class="button-container" *ngIf="Isview">
+  <h1>アンケート・投票システム（2J研修チームA）</h1>
+    <button *ngFor="let btn of buttons" 
+          [routerLink]="btn.path"
+          class="nav-button" nzSize="large" (click)="onClick1()" nzBlock>
+    {{ btn.label }}
+    </button>
+  </div>
+  <router-outlet></router-outlet>

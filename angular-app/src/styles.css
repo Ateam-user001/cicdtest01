@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+/* Master Styles */
+h1 {
+  color: rgb(153, 51, 119);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 300%;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 10px solid rgb(153, 51, 119);
+}
+h2 {
+  color: #3c32c5;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 200%;
+  font-weight: bold;
+}
+body {
+  margin: 2em;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+ 
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}

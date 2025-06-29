@@ -41,12 +41,16 @@
              port: 22
              script: |
                cd /usr/local/bin/myapp
+               echo "１１１"
                # stop existing application
                pkill -f 'java -jar' || true
+               echo "２２２"
                # 新しいjarを配置
                cp ./stringboot-app/target/*.jar ./app.jar
+               echo "３３３"
                # Angularのファイルを配置
                rm -rf ./static
                mkdir ./static
                cp -r ./angular-app/dist/angular-app/* ./static/
+               echo "４４４"
                nohup java -jar /usr/local/bin/myapp/app.jar > app.log 2>&1 &

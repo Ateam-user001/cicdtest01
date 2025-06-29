@@ -1,0 +1,47 @@
+   name: Deploy SpringBoot and Angular app to EC2
+   on:
+     push:
+       branches:
+         - main
+   jobs:
+     deploy:
+       runs-on: ubuntu-latest
+       steps:
+         - name: Checkout code
+           uses: actions/checkout@v3
+         - name: Set up JDK 17
+           uses: actions/setup-java@v3
+           with:
+             java-version: '17'
+             distribution: 'adopt'
+         - name: Build and package Angular app
+           run: |
+             cd angular-app
+             npm install
+             npm run build
+         - name: Build and package SpringBoot app
+           run: |
+             ./gradlew bootJar
+         - name: Deploy to EC2
+           uses: appleboy/ssh-action@master
+           with:
+             host: ${{ secrets.EC2_HOST }}
+             username: ${{ secrets.EC2_USER }}
+             key: ${{ secrets.EC2_PRIVATE_KEY }}
+             port: 22
+             script: |
+               cd /home/ec2-user/app
+               # stop existing application
+               ./stop.sh
+               # remove existing app
+               rm -rf ./dist
+               rm -rf ./build
+               # remove existing jar
+               rm -f ./build/libs/*.jar
+               # copy new app
+               mkdir -p ./dist
+               mkdir -p ./build/libs
+               scp -r ./angular-app/dist ./dist
+               scp ./build/libs/*.jar ./build/libs/
+               # start new application
+               ./start.sh

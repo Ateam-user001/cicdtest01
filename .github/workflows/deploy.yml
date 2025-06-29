@@ -23,6 +23,15 @@
              cd angular-app
              npm install
              npm run build
+         - name: Copy files to EC2
+           uses: appleboy/scp-action@master
+           with:
+             host: ${{ secrets.EC2_HOST }}
+             username: ${{ secrets.EC2_USER }}
+             key: ${{ secrets.EC2_PRIVATE_KEY }}
+             port: 22
+             source: "./dist/angular-app/*,./target/*.jar"
+             target: "/usr/local/bin/myapp" # EC2上のデプロイ先ディレクトリ
          - name: Deploy to EC2
            uses: appleboy/ssh-action@master
            with:
@@ -31,19 +40,13 @@
              key: ${{ secrets.EC2_PRIVATE_KEY }}
              port: 22
              script: |
-               mkdir /home/ec2-user/app
-               cd /home/ec2-user/app
+               cd /usr/local/bin/myapp
                # stop existing application
-               ./stop.sh
-               # remove existing app
-               rm -rf ./dist
-               rm -rf ./build
-               # remove existing jar
-               rm -f ./build/libs/*.jar
-               # copy new app
-               mkdir -p ./dist
-               mkdir -p ./build/libs
-               scp -r ./angular-app/dist ./dist
-               scp ./build/libs/*.jar ./build/libs/
-               # start new application
-               ./start.sh
+               pkill -f 'java -jar' || true
+               # 新しいjarを配置
+               cp ./target/*.jar ./app.jar
+               # Angularのファイルを配置
+               rm -rf ./static
+               mkdir ./static
+               cp -r ./dist/angular-app/* ./static/
+               nohup java -jar /usr/local/bin/myapp/*.jar > app.log 2>&1 &

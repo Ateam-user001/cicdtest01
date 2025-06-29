@@ -28,7 +28,7 @@
            with:
              host: ${{ secrets.EC2_HOST }}
              username: ${{ secrets.EC2_USER }}
-             password: ${{ secrets.EC2_PASSWORD }}
+             key: ${{ secrets.EC2_PRIVATE_KEY }}
              port: 22
              script: |
                mkdir /home/ec2-user/app

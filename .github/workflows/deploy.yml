@@ -43,7 +43,8 @@
                cd /usr/local/bin/myapp
                echo "１１１"
                # stop existing application
-               pkill -f 'java -jar app.jar' || true
+               # pkill -f 'java -jar app.jar' || true
+               sudo systemctl stop app
                echo "２２２"
                # 新しいjarを配置
                cp ./stringboot-app/target/*.jar ./app.jar

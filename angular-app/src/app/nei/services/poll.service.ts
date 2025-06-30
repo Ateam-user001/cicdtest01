@@ -14,7 +14,8 @@ export interface Poll {
 })
 export class PollService {
 
-  private apiUrl = 'http://localhost:8080/api/polls';
+  // private apiUrl = 'http://localhost:8080/api/polls';
+  private apiUrl = '/api/polls';
 
   /** ログ出力用メソッド */
   private log(message: string): void {

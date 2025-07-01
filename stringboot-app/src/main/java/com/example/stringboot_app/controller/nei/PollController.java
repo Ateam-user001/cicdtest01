@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 // @CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "http://13.231.174.209:4200")
+@CrossOrigin
 public class PollController {
     
     @Autowired

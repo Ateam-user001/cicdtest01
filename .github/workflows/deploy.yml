@@ -45,6 +45,7 @@
                # stop existing application
                # pkill -f 'java -jar app.jar' || true
                sudo systemctl stop myapp
+               sleep 8
                echo "２２２"
                # 新しいjarを配置
                cp ./temp-copy/stringboot-app/target/*.jar ./app.jar

@@ -55,4 +55,4 @@
                mkdir ./static
                cp -r ./temp-copy/angular-app/dist/angular-app/* ./static/
                echo "４４４"
-               nohup java -jar /usr/local/bin/myapp/app.jar > app.log 2>&1 &
+               nohup java -jar /usr/local/bin/myapp/app.jar

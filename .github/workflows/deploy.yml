@@ -55,4 +55,4 @@
                mkdir ./static
                cp -r ./temp-copy/angular-app/dist/angular-app/* ./static/
                echo "４４４"
-               nohup java -jar /usr/local/bin/myapp/app.jar
+               sudo systemctl start myapp

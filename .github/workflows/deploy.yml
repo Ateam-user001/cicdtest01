@@ -31,7 +31,7 @@
              key: ${{ secrets.EC2_PRIVATE_KEY }}
              port: 22
              source: "./angular-app/dist/angular-app/*, ./stringboot-app/target/*.jar"
-             target: "/usr/local/bin/myapp" # EC2上のデプロイ先ディレクトリ
+             target: "/usr/local/bin/myapp/temp-copy" # EC2上のデプロイ先ディレクトリ
          - name: Deploy to EC2
            uses: appleboy/ssh-action@master
            with:
@@ -47,11 +47,11 @@
                sudo systemctl stop myapp
                echo "２２２"
                # 新しいjarを配置
-               cp ./stringboot-app/target/*.jar ./app.jar
+               cp ./temp-copy/stringboot-app/target/*.jar ./app.jar
                echo "３３３"
                # Angularのファイルを配置
                rm -rf ./static
                mkdir ./static
-               cp -r ./angular-app/dist/angular-app/* ./static/
+               cp -r ./temp-copy/angular-app/dist/angular-app/* ./static/
                echo "４４４"
                nohup java -jar /usr/local/bin/myapp/app.jar > app.log 2>&1 &

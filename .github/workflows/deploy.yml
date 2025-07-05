@@ -22,7 +22,7 @@
            run: |
              cd angular-app
              npm install
-             npm run build
+             npm run build --configuration production
          - name: Copy files to EC2
            uses: appleboy/scp-action@master
            with:
@@ -40,19 +40,19 @@
              key: ${{ secrets.EC2_PRIVATE_KEY }}
              port: 22
              script: |
+               echo "サーバ配置開始！！"
                cd /usr/local/bin/myapp
-               echo "１１１"
                # stop existing application
                # pkill -f 'java -jar app.jar' || true
                sudo systemctl stop myapp
-               sleep 5
-               echo "２２２"
+               sleep 2
                # 新しいjarを配置
                cp ./temp-copy/stringboot-app/target/*.jar ./app.jar
-               echo "３３３"
                # Angularのファイルを配置
                rm -rf ./static
                mkdir ./static
                cp -r ./temp-copy/angular-app/dist/angular-app/* ./static/
-               echo "４４４"
+               rm -rf ./temp-copy/stringboot-app
+               rm -rf ./temp-copy/angular-app
+               echo "サーバ配置完了！！"
                sudo systemctl start myapp

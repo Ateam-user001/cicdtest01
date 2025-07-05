@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+
 
 export interface Poll {
   id: number;
@@ -14,8 +16,9 @@ export interface Poll {
 })
 export class PollService {
 
-  // private apiUrl = 'http://localhost:8080/api/polls';
-  private apiUrl = '/api/polls';
+  // APIのURLを環境変数から取得
+  // ローカル用、サーバ用が異なるため、プロパティファイルから取得
+  private apiUrl = `${environment.apiUrl}/api/polls`;
 
   /** ログ出力用メソッド */
   private log(message: string): void {

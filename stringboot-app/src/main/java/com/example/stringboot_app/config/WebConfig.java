@@ -19,7 +19,7 @@ public class WebConfig {
             public void addCorsMappings(CorsRegistry registry) {
 
                 registry.addMapping("/api/**")
-                         .allowedOrigins(serverIp)    // ローカル用、サーバ用が異なるため、プロパティファイルから取得
+                         .allowedOriginPatterns(serverIp)    // ローカル用、サーバ用が異なるため、プロパティファイルから取得
                          .allowedMethods("PUT", "POST", "GET", "DELETE")
                          .allowedHeaders("*")
                          .allowCredentials(true);

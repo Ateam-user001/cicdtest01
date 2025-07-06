@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.stringboot_app.entity.nei.Poll;
+import com.example.stringboot_app.repository.nei.PollRepository;
+import com.example.stringboot_app.entity.nei.Answerlist;
 import com.example.stringboot_app.service.nei.PollService;
+import com.example.stringboot_app.service.nei.AnwserlistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,9 +20,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 // @CrossOrigin(origins = "http://localhost:4200")
 @CrossOrigin
 public class PollController {
+
+    private final PollRepository pollRepository;
     
     @Autowired
     private PollService pollService;
+    @Autowired
+    private AnwserlistService anwserlistService;
+
+    PollController(PollRepository pollRepository) {
+        this.pollRepository = pollRepository;
+    }
 
     @GetMapping("/api/polls")
     public List<Poll> getPolls() {
@@ -48,5 +60,18 @@ public class PollController {
         }
     return ResponseEntity.ok(null);
     }       
+
+   // 登録 POST /api/polls/insert
+    @PostMapping("/api/polls/insert")
+    public ResponseEntity<Answerlist> insertAnswerlist( @RequestBody Answerlist answerlistDetails) {
+        System.out.println("送信データ: " + answerlistDetails);
+        anwserlistService.saveAnwserlist(answerlistDetails);
+        return ResponseEntity.ok(null);
+    }
+    
+    @GetMapping("/api/polls/answerlist")
+    public List<Answerlist> getAnswLists() {
+        return anwserlistService.getAllAnswerlist();
+    }
 
 }

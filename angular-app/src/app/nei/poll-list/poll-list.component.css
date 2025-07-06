@@ -1,6 +1,6 @@
 .poll-card {
     max-width: 800px;
-    margin: 30px auto;
+    margin: 16px auto;
     font-size: 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     background-color:rgb(243, 241, 236);
@@ -9,9 +9,20 @@
 
 h2 {
     text-align: center;
-    color: #ffd700;
+    color: #128112e0;
     margin-bottom: 24px;
-    font-size: 28px;
+    font-size: 24px;
+}
+
+h3 {
+    color: black;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+h4 {
+    color: #200ccee0;
+    margin-bottom: 18px;
+    font-size: 18px;
 }
 
 nz-table tbody tr:hover td {

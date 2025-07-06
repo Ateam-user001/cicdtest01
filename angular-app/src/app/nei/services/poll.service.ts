@@ -11,6 +11,12 @@ export interface Poll {
   thcount: number;
 }
 
+export interface Answerlist {
+  sex: string;
+  age: string;
+  select_num: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -47,7 +53,26 @@ export class PollService {
     return this.http.put<any>(url, post, this.httpOptions).pipe(
       catchError(this.handleError<any>('updatePoll'))
     );
+    
   }
+  
+   insertAnswerlist(post: Answerlist): Observable<any> {
+    const url = `${this.apiUrl}/insert`;
+    console.log(post);
+    
+    // postリクエストを送信
+    return this.http.post<any>(url, post, this.httpOptions).pipe(
+      catchError(this.handleError<any>('insertAnswerlist'))
+    );
+    
+  }
+
+   getAnswerlist(): Observable<Answerlist[]> {
+    const url = `${this.apiUrl}/answerlist`;
+    console.log(url);
+    return this.http.get<Answerlist[]>(url);
+  }
+
 
   /** Observable用のエラーハンドラ */
   private handleError<T>(operation = 'operation', result?: T) {

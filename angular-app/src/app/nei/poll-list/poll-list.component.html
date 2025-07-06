@@ -1,30 +1,83 @@
-<nz-card nzTitle="犬派vs猫派対決！ 犬と猫どちらが好きか？" class="poll-card">
+<nz-card class="poll-card">
+<div>
+  <h3>犬派vs猫派対決！ 犬と猫どちらが好きか？</h3>
+</div>
+
+
+<div *ngIf="!isVisibleT" style="text-align: center; margin-bottom: 20px;">
+  <h2>投票結果！！！！！</h2>
+</div>
+
+<div *ngIf="isVisibleT">
+  <tr>
+    <td>回答者性別</td>
+    <td>
+      <nz-select [(ngModel)]="selectedSex" nzPlaceHolder="性別選択">
+        <nz-option *ngFor="let sex of sexss" [nzLabel]="sex.label" [nzValue]="sex.value"></nz-option>
+      </nz-select>
+    </td>
+
+    <td>回答者年齢</td>
+    <td>
+      <nz-select [(ngModel)]="selectedAge" nzPlaceHolder="年齢選択">
+        <nz-option *ngFor="let age of Ages" [nzLabel]="age.label" [nzValue]="age.value"></nz-option>
+      </nz-select>
+    </td>
+  </tr>
+</div>
+<p></p>
+<h2></h2>
+
   <nz-table
     [nzData]="polls"
     [nzBordered]="true"
     [nzSize]="'middle'"
+    [nzShowPagination]="false"
   >
     <thead>
       <tr>
         <!-- <th>ID</th> -->
-        <th>選択</th>
-        <th>投票結果&nbsp;&nbsp;&nbsp;<button nz-button nzType="primary" (click)="voteclear()">結果クリア</button></th>
-        <th style="text-align: center;">操作</th>
+        <th>選択内容</th>
+        <th *ngIf="!isVisibleT">投票結果</th>
+        <th *ngIf="isVisibleT" style="text-align: center;">投票</th>
       </tr>
     </thead>
    <tbody>
     <tr *ngFor="let poll of polls">
       <!-- <td>{{ poll.id }}</td> -->
-      <td>{{ poll.question }}</td>
-      <td>{{ poll.thcount }} ／ {{ allcount }} &nbsp; <nz-progress [nzPercent]="psview[poll.id-1]" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"></nz-progress></td>
-      <td align="center">
-        <button nz-button nzType="primary" (click)="vote(poll.id,poll.question,poll.thcount)" nzShape="round">投票</button>&nbsp;
+      <td><img nz-image nzSrc="{{ poll.id }}.jpg" width="150" height="100" alt="">&nbsp;{{ poll.question }}</td>
+      <td  *ngIf="!isVisibleT">{{ poll.thcount }} ／ {{ allcount }} &nbsp; <nz-progress [nzPercent]="psview[poll.id-1]" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }">
+      </nz-progress>
+      <span style="margin-left: 180px;">&nbsp;</span>
+    </td>
+      <td  *ngIf="isVisibleT" align="center">
+        <button nz-button nzType="primary" (click)="vote(poll.id,poll.question,poll.thcount)" nzShape="round" nzSize="large">投票</button>&nbsp;
       </td>
     </tr>
   </tbody>
   </nz-table>
-  <button nz-button  nzType="primary" (click)="voteupdate()">結果保存</button>
-   &nbsp;&nbsp;&nbsp;
-  <button nz-button nzType="primary" routerLink="/app-root" (click)="voteReturn()">戻る</button>
-</nz-card>
 
+<h2></h2>
+
+<div *ngIf="!isVisibleT">
+  <tr>
+    <td><h3>男女別統計</h3></td>
+    <td style="background-color: rgb(228, 227, 214);">
+       <nz-progress [nzPercent]="sexview[0]" nzType="circle" [nzWidth]="100" [nzFormat]="formatOne" nzStatus= "normal"></nz-progress>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <nz-progress [nzPercent]="sexview[1]" nzType="circle" [nzWidth]="100" [nzFormat]="formatTwo" nzStatus="exception"></nz-progress>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <nz-progress [nzPercent]="sexview[2]" nzType="circle" [nzWidth]="100" [nzFormat]="formatThree" nzStatus= "success"></nz-progress>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <nz-progress [nzPercent]="sexview[3]" nzType="circle" [nzWidth]="100" [nzFormat]="formatFour" nzStatus= "active"  [nzStrokeColor]="{ '0%': '#a110e9', '100%': '#a110e9' }" ></nz-progress>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </td>
+  </tr>
+</div>
+
+<p></p>
+  <button nz-button *ngIf="isVisibleview" nzType="primary" nzSize="large" (click)="voteView()">投票結果のみ確認</button>
+  <button nz-button *ngIf="isVisibleviewtohyo" nzType="primary" nzSize="large"  (click)="voteViewtohyo()">投票画面に戻る</button>
+  &nbsp;&nbsp;
+  <button nz-button nzType="primary" routerLink="/app-root" nzSize="large"  (click)="voteReturn()">メニューに戻る</button>
+</nz-card>

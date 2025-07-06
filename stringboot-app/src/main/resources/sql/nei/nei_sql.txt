@@ -19,7 +19,7 @@ CREATE TABLE nei_polls (
 
 INSERT INTO nei_polls ( question,thcount) VALUES ( '犬好き', 0);
 INSERT INTO nei_polls ( question,thcount) VALUES ( '猫好き', 0);
-INSERT INTO nei_polls ( question,thcount) VALUES ( 'どっちも苦手', 0);
+INSERT INTO nei_polls ( question,thcount) VALUES ( 'どちらでも言えない', 0);
 
 
 /* 投票者一覧 */
